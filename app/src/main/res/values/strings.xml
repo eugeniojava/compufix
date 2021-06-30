@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">CompuFix</string>
+
+    <string name="titulo">Cadastrar computador</string>
+
+    <string name="proprietario">Proprietário</string>
+    <string name="modelo">Modelo</string>
+    <string name="fabricante">Fabricante</string>
+    <string name="descricao">Descrição</string>
+
+    <string name="tipo">Tipo</string>
+    <string name="tipo_formatacao">Formatação</string>
+    <string name="tipo_manutencao">Manutenção</string>
+    <string name="tipo_reparo">Reparo</string>
+
+    <string name="cliente">Cliente</string>
+    <string name="cliente_pessoa_fisica">Pessoa física</string>
+    <string name="cliente_pessoa_juridica">Pessoa jurídica</string>
+    <string name="cliente_sem_cadastro">Sem cadastro</string>
+
+    <string name="urgente">Urgente</string>
+
+    <string name="cadastrar">Salvar</string>
+    <string name="limpar">Limpar</string>
+
+    <string name="mensagem_erro_proprietario">Proprietário não pode ser vazio</string>
+    <string name="mensagem_erro_modelo">Modelo não pode ser vazio</string>
+    <string name="mensagem_erro_fabricante">Fabricante não pode ser vazio</string>
+    <string name="mensagem_erro_descricao">Descrição não pode ser vazio</string>
+    <string name="mensagem_erro_cliente">Cliente deve ser selecionado</string>
+    <string name="mensagem_sucesso_limpar">Formulário limpo com sucesso!</string>
+</resources>
