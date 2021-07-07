@@ -72,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
         String descricao = editTextDescricao.getText().toString();
         String tipo = (String) spinnerTipo.getSelectedItem();
         String cliente = obterCliente();
-        String urgente = checkBoxUrgente.isChecked() ? "Sim" : "Não";
+        String urgente = checkBoxUrgente.isChecked() ?
+                getString(R.string.urgente_sim) :
+                getString(R.string.urgente_nao);
 
         if (!validarCampo(this, editTextProprietario, R.string.mensagem_erro_proprietario)
                 || !validarCampo(this, editTextModelo, R.string.mensagem_erro_modelo)
@@ -82,13 +84,15 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        String mensagemCadastro = "Proprietário: " + proprietario +
-                "\nModelo: " + modelo +
-                "\nFabricante: " + fabricante +
-                "\nDescrição: " + descricao +
-                "\nTipo: " + tipo +
-                "\nCliente: " + cliente +
-                "\nUrgente: " + urgente;
+        String mensagemCadastro = getString(
+                R.string.mensagem_sucesso,
+                proprietario,
+                modelo,
+                fabricante,
+                descricao,
+                tipo,
+                cliente,
+                urgente);
         Toast.makeText(this, mensagemCadastro, Toast.LENGTH_LONG).show();
     }
 

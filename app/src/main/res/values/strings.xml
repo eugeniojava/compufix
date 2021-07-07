@@ -19,6 +19,8 @@
     <string name="cliente_sem_cadastro">Sem cadastro</string>
 
     <string name="urgente">Urgente</string>
+    <string name="urgente_sim">Sim</string>
+    <string name="urgente_nao">Não</string>
 
     <string name="cadastrar">Salvar</string>
     <string name="limpar">Limpar</string>
@@ -28,5 +30,25 @@
     <string name="mensagem_erro_fabricante">Fabricante não pode ser vazio</string>
     <string name="mensagem_erro_descricao">Descrição não pode ser vazio</string>
     <string name="mensagem_erro_cliente">Cliente deve ser selecionado</string>
+
     <string name="mensagem_sucesso_limpar">Formulário limpo com sucesso!</string>
+    <string name="mensagem_sucesso">Proprietário: %1$s\nModelo: %2$s\nFabricante: %3$s\nDescrição: %4$s\nTipo: %5$s\nCliente: %6$s\nUrgente: %7$s</string>
+
+    <string name="proprietario_1">Miguel</string>
+    <string name="proprietario_2">Davi</string>
+    <string name="proprietario_3">Alice</string>
+    <string name="proprietario_4">Beatriz</string>
+    <string name="proprietario_5">Gabriel</string>
+    <string name="proprietario_6">Bernardo</string>
+    <string name="proprietario_7">Helena</string>
+    <string name="proprietario_8">Samuel</string>
+    <string name="proprietario_9">Valentina</string>
+    <string name="proprietario_10">Rafaela</string>
+
+    <string name="prefixo_urgente">Urgente? %1$s</string>
+    <string name="prefixo_tipo">Tipo: %1$s</string>
+    <string name="prefixo_cliente">Cliente: %1$s</string>
+    <string name="prefixo_proprietario">Proprietário: %1$s</string>
+
+    <string name="foi_clicado">O computador do(a) %1$s foi clicado</string>
 </resources>
