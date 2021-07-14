@@ -10,30 +10,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textViewTitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:text="@string/titulo"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textViewProprietario"
@@ -43,9 +28,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/proprietario"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editTextProprietario"
@@ -55,7 +38,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
-                android:inputType="text|textCapSentences"
+                android:inputType="text|textCapWords"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewProprietario" />
 
@@ -194,34 +177,50 @@
                 android:id="@+id/checkBoxUrgente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/urgente" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonCadastrar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginLeft="80dp"
+                    android:gravity="center"
+                    android:onClick="cadastrar"
+                    android:text="@string/cadastrar" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/buttonLimpar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginRight="80dp"
+                    android:gravity="center"
+                    android:onClick="limpar"
+                    android:text="@string/limpar" />
+            </LinearLayout>
+
             <Button
-                android:id="@+id/buttonCadastrar"
+                android:id="@+id/buttonVoltar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                android:onClick="cadastrar"
-                android:text="@string/cadastrar"
-                app:layout_constraintStart_toStartOf="@+id/editTextDescricao"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDescricao" />
-
-            <Button
-                android:id="@+id/buttonLimpar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                android:onClick="limpar"
-                android:text="@string/limpar"
-                app:layout_constraintEnd_toEndOf="@+id/editTextDescricao"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDescricao" />
-
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:onClick="voltar"
+                android:text="@string/voltar" />
         </LinearLayout>
-
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

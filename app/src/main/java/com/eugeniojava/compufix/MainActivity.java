@@ -1,6 +1,7 @@
 package com.eugeniojava.compufix;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,15 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String PROPRIETARIO = "proprietario";
+    public static final String MODELO = "modelo";
+    public static final String FABRICANTE = "fabricante";
+    public static final String DESCRICAO = "descricao";
+    public static final String TIPO = "tipo";
+    public static final String CLIENTE = "cliente";
+    public static final String URGENTE = "urgente";
+    public static final String ACAO = "acao";
+    private int acao;
     private EditText editTextProprietario;
     private EditText editTextModelo;
     private EditText editTextFabricante;
@@ -28,7 +38,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(getString(R.string.cadastro_entidade_titulo));
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            acao = bundle.getInt(ACAO, 0);
+        }
         editTextProprietario = findViewById(R.id.editTextProprietario);
         editTextModelo = findViewById(R.id.editTextModelo);
         editTextFabricante = findViewById(R.id.editTextFabricante);
@@ -37,6 +53,16 @@ public class MainActivity extends AppCompatActivity {
         popularSpinner();
         radioGroupCliente = findViewById(R.id.radioGroupCliente);
         checkBoxUrgente = findViewById(R.id.checkBoxUrgente);
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        finish();
+    }
+
+    public void voltar(View view) {
+        finish();
     }
 
     private void popularSpinner() {
@@ -72,9 +98,7 @@ public class MainActivity extends AppCompatActivity {
         String descricao = editTextDescricao.getText().toString();
         String tipo = (String) spinnerTipo.getSelectedItem();
         String cliente = obterCliente();
-        String urgente = checkBoxUrgente.isChecked() ?
-                getString(R.string.urgente_sim) :
-                getString(R.string.urgente_nao);
+        boolean urgente = checkBoxUrgente.isChecked();
 
         if (!validarCampo(this, editTextProprietario, R.string.mensagem_erro_proprietario)
                 || !validarCampo(this, editTextModelo, R.string.mensagem_erro_modelo)
@@ -84,16 +108,20 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        String mensagemCadastro = getString(
-                R.string.mensagem_sucesso,
-                proprietario,
-                modelo,
-                fabricante,
-                descricao,
-                tipo,
-                cliente,
-                urgente);
-        Toast.makeText(this, mensagemCadastro, Toast.LENGTH_LONG).show();
+        if (acao == ListagemActivity.CADASTRAR) {
+            Intent intent = new Intent();
+
+            intent.putExtra(PROPRIETARIO, proprietario);
+            intent.putExtra(MODELO, modelo);
+            intent.putExtra(FABRICANTE, fabricante);
+            intent.putExtra(DESCRICAO, descricao);
+            intent.putExtra(TIPO, tipo);
+            intent.putExtra(CLIENTE, cliente);
+            intent.putExtra(URGENTE, urgente);
+
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
     private String obterCliente() {
@@ -105,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.radioButtonSemCadastro:
                 return getString(R.string.cliente_sem_cadastro);
             default:
-                return "Cliente não especificado";
+                return getString(R.string.cliente_nao_especificado);
         }
     }
 
@@ -123,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean validarCliente(Context context, String cliente, int mensagemErro) {
-        if (cliente.equals("Cliente não especificado")) {
+        if (cliente.equals(getString(R.string.cliente_nao_especificado))) {
             Toast.makeText(context, mensagemErro, Toast.LENGTH_SHORT).show();
 
             return false;

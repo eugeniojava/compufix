@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">CompuFix</string>
 
-    <string name="titulo">Cadastrar computador</string>
-
     <string name="proprietario">Proprietário</string>
     <string name="modelo">Modelo</string>
     <string name="fabricante">Fabricante</string>
@@ -51,4 +49,18 @@
     <string name="prefixo_proprietario">Proprietário: %1$s</string>
 
     <string name="foi_clicado">O computador do(a) %1$s foi clicado</string>
+    <string name="botao_adicionar">Adicionar</string>
+    <string name="botao_sobre">Sobre</string>
+
+    <!-- Dados de autoria do app -->
+    <string name="dados_autoria_titulo">Sobre o autor</string>
+    <string name="dados_autoria_nome">Eugênio Alves Moreira Neto</string>
+    <string name="dados_autoria_curso">Engenharia de Software</string>
+    <string name="dados_autoria_email">eugenio@alunos.utfpr.edu.br</string>
+    <string name="dados_autoria_descricao">Aplicativo para gerenciamento de computadores a serem reparados</string>
+    <string name="dados_autoria_logo_utfpr_content_description">Logo UTFPR</string>
+    <string name="dados_autoria_nome_utfpr">Universidade Tecnológica Federal do Paraná</string>
+    <string name="voltar">Voltar</string>
+    <string name="cliente_nao_especificado">Cliente não especificado</string>
+    <string name="cadastro_entidade_titulo">Cadastrar computador</string>
 </resources>
