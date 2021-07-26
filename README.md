@@ -1,2 +1,2 @@
 # compufix
-Project of the discipline of programming for mobile devices
+Programming for mobile devices discipline's project
