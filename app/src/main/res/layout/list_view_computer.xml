@@ -11,19 +11,19 @@
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/textViewTipo"
+        android:id="@+id/textViewType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/textViewCliente"
+        android:id="@+id/textViewCustomer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/textViewProprietario"
+        android:id="@+id/textViewOwner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />

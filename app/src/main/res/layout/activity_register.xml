@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,17 +21,17 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewProprietario"
+                android:id="@+id/textViewOwner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/proprietario"
+                android:text="@string/register_activity_owner"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editTextProprietario"
+                android:id="@+id/editTextOwner"
                 android:layout_width="300dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="16dp"
@@ -40,22 +40,22 @@
                 android:ems="10"
                 android:inputType="text|textCapWords"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewProprietario" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewOwner" />
 
             <TextView
-                android:id="@+id/textViewModelo"
+                android:id="@+id/textViewModel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/modelo"
+                android:text="@string/register_activity_model"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextProprietario" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextOwner" />
 
             <EditText
-                android:id="@+id/editTextModelo"
+                android:id="@+id/editTextModel"
                 android:layout_width="300dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="16dp"
@@ -64,22 +64,22 @@
                 android:ems="10"
                 android:inputType="text|textCapSentences"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewModelo" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewModel" />
 
             <TextView
-                android:id="@+id/textViewFabricante"
+                android:id="@+id/textViewManufacturer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/fabricante"
+                android:text="@string/register_activity_manufacturer"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextModelo" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextModel" />
 
             <EditText
-                android:id="@+id/editTextFabricante"
+                android:id="@+id/editTextManufacturer"
                 android:layout_width="300dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="16dp"
@@ -88,22 +88,22 @@
                 android:ems="10"
                 android:inputType="text|textCapSentences"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewFabricante" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewManufacturer" />
 
             <TextView
-                android:id="@+id/textViewDescricao"
+                android:id="@+id/textViewDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/descricao"
+                android:text="@string/register_activity_description"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextFabricante" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextManufacturer" />
 
             <EditText
-                android:id="@+id/editTextDescricao"
+                android:id="@+id/editTextDescription"
                 android:layout_width="300dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="16dp"
@@ -112,22 +112,22 @@
                 android:ems="10"
                 android:inputType="text|textCapSentences"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescricao" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
 
             <TextView
-                android:id="@+id/textViewTipo"
+                android:id="@+id/textViewType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/tipo"
+                android:text="@string/register_activity_type"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextDescricao" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
             <Spinner
-                android:id="@+id/spinnerTipo"
+                android:id="@+id/spinnerType"
                 android:layout_width="300dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="16dp"
@@ -137,90 +137,48 @@
                 android:spinnerMode="dialog" />
 
             <TextView
-                android:id="@+id/textViewCliente"
+                android:id="@+id/textViewCustomer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@string/cliente"
+                android:text="@string/register_activity_customer"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerTipo" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerType" />
 
             <RadioGroup
-                android:id="@+id/radioGroupCliente"
+                android:id="@+id/radioGroupCustomer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp">
 
                 <RadioButton
-                    android:id="@+id/radioButtonPessoaFisica"
+                    android:id="@+id/radioButtonPhysicalPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/cliente_pessoa_fisica" />
+                    android:text="@string/register_activity_customer_physical_person" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonPessoaJuridica"
+                    android:id="@+id/radioButtonLegalPerson"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/cliente_pessoa_juridica" />
+                    android:text="@string/register_activity_customer_legal_person" />
 
                 <RadioButton
-                    android:id="@+id/radioButtonSemCadastro"
+                    android:id="@+id/radioButtonNotRegistered"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/cliente_sem_cadastro" />
+                    android:text="@string/register_activity_customer_not_registered" />
             </RadioGroup>
 
             <CheckBox
-                android:id="@+id/checkBoxUrgente"
+                android:id="@+id/checkBoxUrgent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/urgente" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/buttonCadastrar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginLeft="80dp"
-                    android:gravity="center"
-                    android:onClick="cadastrar"
-                    android:text="@string/cadastrar" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/buttonLimpar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="80dp"
-                    android:layout_marginRight="80dp"
-                    android:gravity="center"
-                    android:onClick="limpar"
-                    android:text="@string/limpar" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/buttonVoltar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:onClick="voltar"
-                android:text="@string/voltar" />
+                android:text="@string/register_activity_urgent" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

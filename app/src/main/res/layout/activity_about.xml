@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DadosAutoriaActivity">
+    tools:context=".AboutActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewNome"
+                android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -31,14 +31,14 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                android:text="@string/dados_autoria_nome"
+                android:text="@string/about_activity_name"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewCurso"
+                android:id="@+id/textViewCourse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -48,11 +48,11 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                android:text="@string/dados_autoria_curso"
+                android:text="@string/about_activity_course"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNome" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
             <TextView
                 android:id="@+id/textViewEmail"
@@ -65,14 +65,14 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                android:text="@string/dados_autoria_email"
+                android:text="@string/about_activity_email"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCurso" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewCourse" />
 
             <TextView
-                android:id="@+id/textViewDescricao"
+                android:id="@+id/textViewDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -82,14 +82,14 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                android:text="@string/dados_autoria_descricao"
+                android:text="@string/about_activity_description"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
 
             <ImageView
-                android:id="@+id/imageViewLogoUtfpr"
+                android:id="@+id/imageViewCollegeLogo"
                 android:layout_width="300dp"
                 android:layout_height="225dp"
                 android:layout_gravity="center"
@@ -98,15 +98,15 @@
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:contentDescription="@string/dados_autoria_logo_utfpr_content_description"
+                android:contentDescription="@string/about_activity_college_logo_content_description"
                 android:gravity="center"
-                android:src="@drawable/logo_utfpr"
+                android:src="@drawable/college_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescricao" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescription" />
 
             <TextView
-                android:id="@+id/textViewNomeUtfpr"
+                android:id="@+id/textViewCollegeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -116,23 +116,11 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:gravity="center"
-                android:text="@string/dados_autoria_nome_utfpr"
+                android:text="@string/about_activity_college_name"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewLogoUtfpr" />
-
-            <Button
-                android:id="@+id/buttonVoltar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:onClick="voltar"
-                android:text="@string/voltar"
-                app:layout_constraintEnd_toEndOf="@+id/textViewNomeUtfpr"
-                app:layout_constraintTop_toBottomOf="@+id/textViewNomeUtfpr" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewCollegeLogo" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

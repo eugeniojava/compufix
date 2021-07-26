@@ -1,66 +1,50 @@
 <resources>
+    <string name="about_activity_title">Sobre o autor</string>
+    <string name="about_activity_name">Eugênio Alves Moreira Neto</string>
+    <string name="about_activity_course">Engenharia de Software</string>
+    <string name="about_activity_email">eugenio@alunos.utfpr.edu.br</string>
+    <string name="about_activity_description">Aplicativo para gerenciamento de computadores a serem reparados</string>
+    <string name="about_activity_college_logo_content_description">Logo UTFPR</string>
+    <string name="about_activity_college_name">Universidade Tecnológica Federal do Paraná</string>
+
     <string name="app_name">CompuFix</string>
 
-    <string name="proprietario">Proprietário</string>
-    <string name="modelo">Modelo</string>
-    <string name="fabricante">Fabricante</string>
-    <string name="descricao">Descrição</string>
+    <string name="computer_adapter_urgent_prefix">Urgente? %1$s</string>
+    <string name="computer_adapter_type_prefix">Tipo: %1$s</string>
+    <string name="computer_adapter_customer_prefix">Cliente: %1$s</string>
+    <string name="computer_adapter_owner_prefix">Proprietário: %1$s</string>
+    <string name="computer_adapter_urgent_yes">Sim</string>
+    <string name="computer_adapter_urgent_no">Não</string>
 
-    <string name="tipo">Tipo</string>
-    <string name="tipo_formatacao">Formatação</string>
-    <string name="tipo_manutencao">Manutenção</string>
-    <string name="tipo_reparo">Reparo</string>
+    <string name="computer_options_menu_item_save">Salvar</string>
+    <string name="computer_options_menu_item_clear">Limpar</string>
 
-    <string name="cliente">Cliente</string>
-    <string name="cliente_pessoa_fisica">Pessoa física</string>
-    <string name="cliente_pessoa_juridica">Pessoa jurídica</string>
-    <string name="cliente_sem_cadastro">Sem cadastro</string>
+    <string name="list_options_menu_item_add">Adicionar</string>
+    <string name="list_options_menu_item_about">Sobre</string>
 
-    <string name="urgente">Urgente</string>
-    <string name="urgente_sim">Sim</string>
-    <string name="urgente_nao">Não</string>
+    <string name="list_selected_item_menu_item_update">Editar</string>
+    <string name="list_selected_item_menu_item_delete">Excluir</string>
 
-    <string name="cadastrar">Salvar</string>
-    <string name="limpar">Limpar</string>
-
-    <string name="mensagem_erro_proprietario">Proprietário não pode ser vazio</string>
-    <string name="mensagem_erro_modelo">Modelo não pode ser vazio</string>
-    <string name="mensagem_erro_fabricante">Fabricante não pode ser vazio</string>
-    <string name="mensagem_erro_descricao">Descrição não pode ser vazio</string>
-    <string name="mensagem_erro_cliente">Cliente deve ser selecionado</string>
-
-    <string name="mensagem_sucesso_limpar">Formulário limpo com sucesso!</string>
-    <string name="mensagem_sucesso">Proprietário: %1$s\nModelo: %2$s\nFabricante: %3$s\nDescrição: %4$s\nTipo: %5$s\nCliente: %6$s\nUrgente: %7$s</string>
-
-    <string name="proprietario_1">Miguel</string>
-    <string name="proprietario_2">Davi</string>
-    <string name="proprietario_3">Alice</string>
-    <string name="proprietario_4">Beatriz</string>
-    <string name="proprietario_5">Gabriel</string>
-    <string name="proprietario_6">Bernardo</string>
-    <string name="proprietario_7">Helena</string>
-    <string name="proprietario_8">Samuel</string>
-    <string name="proprietario_9">Valentina</string>
-    <string name="proprietario_10">Rafaela</string>
-
-    <string name="prefixo_urgente">Urgente? %1$s</string>
-    <string name="prefixo_tipo">Tipo: %1$s</string>
-    <string name="prefixo_cliente">Cliente: %1$s</string>
-    <string name="prefixo_proprietario">Proprietário: %1$s</string>
-
-    <string name="foi_clicado">O computador do(a) %1$s foi clicado</string>
-    <string name="botao_adicionar">Adicionar</string>
-    <string name="botao_sobre">Sobre</string>
-
-    <!-- Dados de autoria do app -->
-    <string name="dados_autoria_titulo">Sobre o autor</string>
-    <string name="dados_autoria_nome">Eugênio Alves Moreira Neto</string>
-    <string name="dados_autoria_curso">Engenharia de Software</string>
-    <string name="dados_autoria_email">eugenio@alunos.utfpr.edu.br</string>
-    <string name="dados_autoria_descricao">Aplicativo para gerenciamento de computadores a serem reparados</string>
-    <string name="dados_autoria_logo_utfpr_content_description">Logo UTFPR</string>
-    <string name="dados_autoria_nome_utfpr">Universidade Tecnológica Federal do Paraná</string>
-    <string name="voltar">Voltar</string>
-    <string name="cliente_nao_especificado">Cliente não especificado</string>
-    <string name="cadastro_entidade_titulo">Cadastrar computador</string>
+    <string name="register_activity_title_register_computer">Cadastrar computador</string>
+    <string name="register_activity_title_update_computer">Editar computador</string>
+    <string name="register_activity_owner">Proprietário</string>
+    <string name="register_activity_model">Modelo</string>
+    <string name="register_activity_manufacturer">Fabricante</string>
+    <string name="register_activity_description">Descrição</string>
+    <string name="register_activity_type">Tipo</string>
+    <string name="register_activity_type_1">Formatação</string>
+    <string name="register_activity_type_2">Manutenção</string>
+    <string name="register_activity_type_3">Reparo</string>
+    <string name="register_activity_customer">Cliente</string>
+    <string name="register_activity_customer_physical_person">Pessoa física</string>
+    <string name="register_activity_customer_legal_person">Pessoa jurídica</string>
+    <string name="register_activity_customer_not_registered">Sem cadastro</string>
+    <string name="register_activity_customer_not_specified">Cliente não especificado</string>
+    <string name="register_activity_urgent">Urgente</string>
+    <string name="register_activity_message_error_owner">Proprietário não pode ser vazio</string>
+    <string name="register_activity_message_error_model">Modelo não pode ser vazio</string>
+    <string name="register_activity_message_error_manufacturer">Fabricante não pode ser vazio</string>
+    <string name="register_activity_message_error_description">Descrição não pode ser vazio</string>
+    <string name="register_activity_message_error_customer">Cliente deve ser selecionado</string>
+    <string name="register_activity_message_success_clear">Formulário limpo com sucesso!</string>
 </resources>
