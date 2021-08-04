@@ -34,11 +34,11 @@ import java.util.Comparator;
 public class ListActivity extends AppCompatActivity {
 
     private static final String FILE = "com.eugeniojava.shared.preferences.order-preference";
-    private static final String ORDER_BY = "orderBy";
+    private static final String ORDER_BY = "ORDER_BY";
     private static final int ORDER_BY_1 = 1;
     private static final int ORDER_BY_2 = 2;
     private int orderByInUse = ORDER_BY_1;
-    private final Comparator<Computer> computerComparator = (Comparator<Computer>) (computer1, computer2) -> {
+    private final Comparator<Computer> computerComparator = (computer1, computer2) -> {
         switch (orderByInUse) {
             case ORDER_BY_1:
                 return computer1.getOwner().compareToIgnoreCase(computer2.getOwner());
