@@ -1,20 +1,5 @@
 package com.eugeniojava.compufix;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
-
-import java.util.ArrayList;
-
 import static android.widget.AbsListView.CHOICE_MODE_SINGLE;
 import static com.eugeniojava.compufix.RegisterActivity.ACTION;
 import static com.eugeniojava.compufix.RegisterActivity.CREATE;
@@ -27,10 +12,44 @@ import static com.eugeniojava.compufix.RegisterActivity.TYPE;
 import static com.eugeniojava.compufix.RegisterActivity.UPDATE;
 import static com.eugeniojava.compufix.RegisterActivity.URGENT;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class ListActivity extends AppCompatActivity {
 
-    private ListView listViewComputer;
+    private static final String FILE = "com.eugeniojava.shared.preferences.order-preference";
+    private static final String ORDER_BY = "orderBy";
+    private static final int ORDER_BY_1 = 1;
+    private static final int ORDER_BY_2 = 2;
+    private int orderByInUse = ORDER_BY_1;
+    private final Comparator<Computer> computerComparator = (Comparator<Computer>) (computer1, computer2) -> {
+        switch (orderByInUse) {
+            case ORDER_BY_1:
+                return computer1.getOwner().compareToIgnoreCase(computer2.getOwner());
+            case ORDER_BY_2:
+                return computer1.getType().compareToIgnoreCase(computer2.getType());
+            default:
+                return 0;
+        }
+    };
     private ArrayList<Computer> computers;
+    private ListView listViewComputer;
     private ComputerAdapter computerAdapter;
     private ActionMode actionMode;
     private int selectedPosition = -1;
@@ -49,20 +68,27 @@ public class ListActivity extends AppCompatActivity {
             return false;
         }
 
+        private void delete() {
+            computers.remove(selectedPosition);
+            computerAdapter.notifyDataSetChanged();
+        }
+
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.menuItemUpdate:
-                    callRegisterActivityToUpdate();
-                    mode.finish();
-                    return true;
-                case R.id.menuItemDelete:
-                    delete();
-                    mode.finish();
-                    return true;
-                default:
-                    return false;
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.menuItemUpdate) {
+                callRegisterActivityToUpdate();
+                mode.finish();
+
+                return true;
+            } else if (itemId == R.id.menuItemDelete) {
+                delete();
+                mode.finish();
+
+                return true;
             }
+            return false;
         }
 
         @Override
@@ -101,6 +127,7 @@ public class ListActivity extends AppCompatActivity {
         });
 
         populateList();
+        readOrderByPreference();
     }
 
     @Override
@@ -128,7 +155,7 @@ public class ListActivity extends AppCompatActivity {
             } else {
                 computers.add(new Computer(owner, model, manufacturer, description, type, customerType, urgent));
             }
-            computerAdapter.notifyDataSetChanged();
+            readOrderByPreference();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -141,16 +168,70 @@ public class ListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuItemAdd:
-                callRegisterActivityToCreate();
-                return true;
-            case R.id.menuItemAbout:
-                callAboutActivity();
-                return true;
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem menuItem;
+
+        switch (orderByInUse) {
+            case ORDER_BY_1:
+                menuItem = menu.findItem(R.id.menuItemSubmenuOrderBy1);
+                break;
+            case ORDER_BY_2:
+                menuItem = menu.findItem(R.id.menuItemSubmenuOrderBy2);
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                return false;
+        }
+        menuItem.setChecked(true);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.menuItemAdd) {
+            callRegisterActivityToCreate();
+
+            return true;
+        } else if (itemId == R.id.menuItemAbout) {
+            callAboutActivity();
+
+            return true;
+        } else if (itemId == R.id.menuItemSubmenuOrderBy1) {
+            item.setChecked(true);
+            saveOrderPreference(ORDER_BY_1);
+
+            return true;
+        } else if (itemId == R.id.menuItemSubmenuOrderBy2) {
+            item.setChecked(true);
+            saveOrderPreference(ORDER_BY_2);
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void readOrderByPreference() {
+        orderByInUse = getSharedPreferences(FILE, Context.MODE_PRIVATE).getInt(ORDER_BY, orderByInUse);
+
+        orderByPreference();
+    }
+
+    private void saveOrderPreference(int orderBy) {
+        SharedPreferences.Editor editor = getSharedPreferences(FILE, Context.MODE_PRIVATE).edit();
+
+        editor.putInt(ORDER_BY, orderBy);
+        editor.apply();
+        orderByInUse = orderBy;
+
+        orderByPreference();
+    }
+
+    private void orderByPreference() {
+        if (!computers.isEmpty()) {
+            Collections.sort(computers, computerComparator);
+            computerAdapter.notifyDataSetChanged();
         }
     }
 
@@ -182,11 +263,6 @@ public class ListActivity extends AppCompatActivity {
         intent.putExtra(URGENT, computer.isUrgent());
 
         startActivityForResult(intent, UPDATE);
-    }
-
-    private void delete() {
-        computers.remove(selectedPosition);
-        computerAdapter.notifyDataSetChanged();
     }
 
     public void callAboutActivity() {

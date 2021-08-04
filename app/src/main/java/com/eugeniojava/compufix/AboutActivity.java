@@ -1,8 +1,11 @@
 package com.eugeniojava.compufix;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AboutActivity extends AppCompatActivity {
@@ -24,5 +27,25 @@ public class AboutActivity extends AppCompatActivity {
         textViewEmail.setText(getString(R.string.about_activity_email));
         textViewDescription.setText(getString(R.string.about_activity_description));
         textViewCollegeName.setText(getString(R.string.about_activity_college_name));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            cancel();
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        cancel();
+    }
+
+    private void cancel() {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 }

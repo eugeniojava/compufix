@@ -170,7 +170,7 @@
                     android:id="@+id/radioButtonNotRegistered"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/register_activity_customer_not_registered" />
+                    android:text="@string/register_activity_customer_unregistered" />
             </RadioGroup>
 
             <CheckBox

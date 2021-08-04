@@ -1,50 +1,53 @@
 <resources>
-    <string name="about_activity_title">Sobre o autor</string>
-    <string name="about_activity_name">Eugênio Alves Moreira Neto</string>
-    <string name="about_activity_course">Engenharia de Software</string>
-    <string name="about_activity_email">eugenio@alunos.utfpr.edu.br</string>
-    <string name="about_activity_description">Aplicativo para gerenciamento de computadores a serem reparados</string>
-    <string name="about_activity_college_logo_content_description">Logo UTFPR</string>
-    <string name="about_activity_college_name">Universidade Tecnológica Federal do Paraná</string>
+    <string name="about_activity_title">About the author</string>
+    <string name="about_activity_name" translatable="false">Eugênio Alves Moreira Neto</string>
+    <string name="about_activity_course">Software Engineering</string>
+    <string name="about_activity_email" translatable="false">eugenio@alunos.utfpr.edu.br</string>
+    <string name="about_activity_description">Application for managing computers to be repaired</string>
+    <string name="about_activity_college_logo_content_description">UTFPR logo</string>
+    <string name="about_activity_college_name">Federal Technological University of Parana</string>
 
-    <string name="app_name">CompuFix</string>
+    <string name="app_name" translatable="false">CompuFix</string>
 
-    <string name="computer_adapter_urgent_prefix">Urgente? %1$s</string>
-    <string name="computer_adapter_type_prefix">Tipo: %1$s</string>
-    <string name="computer_adapter_customer_prefix">Cliente: %1$s</string>
-    <string name="computer_adapter_owner_prefix">Proprietário: %1$s</string>
-    <string name="computer_adapter_urgent_yes">Sim</string>
-    <string name="computer_adapter_urgent_no">Não</string>
+    <string name="computer_adapter_urgent_prefix">Urgent? %1$s</string>
+    <string name="computer_adapter_type_prefix">Type: %1$s</string>
+    <string name="computer_adapter_customer_prefix">Customer: %1$s</string>
+    <string name="computer_adapter_owner_prefix">Owner: %1$s</string>
+    <string name="computer_adapter_urgent_yes">Yes</string>
+    <string name="computer_adapter_urgent_no">No</string>
 
-    <string name="computer_options_menu_item_save">Salvar</string>
-    <string name="computer_options_menu_item_clear">Limpar</string>
+    <string name="computer_options_menu_item_save">Save</string>
+    <string name="computer_options_menu_item_clear">Clear</string>
 
-    <string name="list_options_menu_item_add">Adicionar</string>
-    <string name="list_options_menu_item_about">Sobre</string>
+    <string name="list_options_menu_item_add">Add</string>
+    <string name="list_options_menu_item_about">About</string>
+    <string name="list_options_menu_item_submenu_order_by">Order by</string>
+    <string name="list_options_menu_item_submenu_order_by_1">Owner</string>
+    <string name="list_options_menu_item_submenu_order_by_2">Type</string>
 
-    <string name="list_selected_item_menu_item_update">Editar</string>
-    <string name="list_selected_item_menu_item_delete">Excluir</string>
+    <string name="list_selected_item_menu_item_update">Update</string>
+    <string name="list_selected_item_menu_item_delete">Delete</string>
 
-    <string name="register_activity_title_register_computer">Cadastrar computador</string>
-    <string name="register_activity_title_update_computer">Editar computador</string>
-    <string name="register_activity_owner">Proprietário</string>
-    <string name="register_activity_model">Modelo</string>
-    <string name="register_activity_manufacturer">Fabricante</string>
-    <string name="register_activity_description">Descrição</string>
-    <string name="register_activity_type">Tipo</string>
-    <string name="register_activity_type_1">Formatação</string>
-    <string name="register_activity_type_2">Manutenção</string>
-    <string name="register_activity_type_3">Reparo</string>
-    <string name="register_activity_customer">Cliente</string>
-    <string name="register_activity_customer_physical_person">Pessoa física</string>
-    <string name="register_activity_customer_legal_person">Pessoa jurídica</string>
-    <string name="register_activity_customer_not_registered">Sem cadastro</string>
-    <string name="register_activity_customer_not_specified">Cliente não especificado</string>
-    <string name="register_activity_urgent">Urgente</string>
-    <string name="register_activity_message_error_owner">Proprietário não pode ser vazio</string>
-    <string name="register_activity_message_error_model">Modelo não pode ser vazio</string>
-    <string name="register_activity_message_error_manufacturer">Fabricante não pode ser vazio</string>
-    <string name="register_activity_message_error_description">Descrição não pode ser vazio</string>
-    <string name="register_activity_message_error_customer">Cliente deve ser selecionado</string>
-    <string name="register_activity_message_success_clear">Formulário limpo com sucesso!</string>
+    <string name="register_activity_title_register_computer">Register computer</string>
+    <string name="register_activity_title_update_computer">Update computer</string>
+    <string name="register_activity_owner">Owner</string>
+    <string name="register_activity_model">Model</string>
+    <string name="register_activity_manufacturer">Manufacturer</string>
+    <string name="register_activity_description">Description</string>
+    <string name="register_activity_type">Type</string>
+    <string name="register_activity_type_1">Format</string>
+    <string name="register_activity_type_2">Maintain</string>
+    <string name="register_activity_type_3">Repair</string>
+    <string name="register_activity_customer">Customer</string>
+    <string name="register_activity_customer_physical_person">Physical person</string>
+    <string name="register_activity_customer_legal_person">Legal person</string>
+    <string name="register_activity_customer_unregistered">Unregistered</string>
+    <string name="register_activity_customer_not_specified">Customer not specified</string>
+    <string name="register_activity_urgent">Urgent</string>
+    <string name="register_activity_message_error_owner">Owner can not be empty</string>
+    <string name="register_activity_message_error_model">Model can not be empty</string>
+    <string name="register_activity_message_error_manufacturer">Manufacturer can not be empty</string>
+    <string name="register_activity_message_error_description">Description can not be empty</string>
+    <string name="register_activity_message_error_customer">Customer must be selected</string>
+    <string name="register_activity_message_success_clear">Form successfully cleared!</string>
 </resources>

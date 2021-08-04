@@ -21,14 +21,14 @@ import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    public static final String ACTION = "action";
-    public static final String OWNER = "owner";
-    public static final String MODEL = "model";
-    public static final String MANUFACTURER = "manufacturer";
-    public static final String DESCRIPTION = "description";
-    public static final String TYPE = "type";
-    public static final String CUSTOMER_TYPE = "customerType";
-    public static final String URGENT = "urgent";
+    public static final String ACTION = "ACTION";
+    public static final String OWNER = "OWNER";
+    public static final String MODEL = "MODEL";
+    public static final String MANUFACTURER = "MANUFACTURER";
+    public static final String DESCRIPTION = "DESCRIPTION";
+    public static final String TYPE = "TYPE";
+    public static final String CUSTOMER_TYPE = "CUSTOMER_TYPE";
+    public static final String URGENT = "URGENT";
     public static final int CREATE = 1;
     public static final int UPDATE = 2;
     private EditText editTextOwner;
@@ -89,19 +89,22 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuItemSave:
-                save();
-                return true;
-            case android.R.id.home:
-                cancel();
-                return true;
-            case R.id.menuItemClear:
-                clear();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+
+        if (itemId == android.R.id.home) {
+            cancel();
+
+            return true;
+        } else if (itemId == R.id.menuItemSave) {
+            save();
+
+            return true;
+        } else if (itemId == R.id.menuItemClear) {
+            clear();
+
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void save() {
@@ -113,10 +116,10 @@ public class RegisterActivity extends AppCompatActivity {
         String customerType = getCustomer();
         boolean urgent = checkBoxUrgent.isChecked();
 
-        if (!validateField(this, editTextOwner, R.string.register_activity_message_error_owner)
-                || !validateField(this, editTextModel, R.string.register_activity_message_error_model)
-                || !validateField(this, editTextManufacturer, R.string.register_activity_message_error_manufacturer)
-                || !validateField(this, editTextDescription, R.string.register_activity_message_error_description)
+        if (validateField(this, editTextOwner, R.string.register_activity_message_error_owner)
+                || validateField(this, editTextModel, R.string.register_activity_message_error_model)
+                || validateField(this, editTextManufacturer, R.string.register_activity_message_error_manufacturer)
+                || validateField(this, editTextDescription, R.string.register_activity_message_error_description)
                 || !validateCustomer()) {
             return;
         }
@@ -172,16 +175,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private String getCustomer() {
-        switch (radioGroupCustomerType.getCheckedRadioButtonId()) {
-            case R.id.radioButtonPhysicalPerson:
-                return getString(R.string.register_activity_customer_physical_person);
-            case R.id.radioButtonLegalPerson:
-                return getString(R.string.register_activity_customer_legal_person);
-            case R.id.radioButtonNotRegistered:
-                return getString(R.string.register_activity_customer_not_registered);
-            default:
-                return getString(R.string.register_activity_customer_not_specified);
+        int checkedRadioButtonId = radioGroupCustomerType.getCheckedRadioButtonId();
+
+        if (checkedRadioButtonId == R.id.radioButtonPhysicalPerson) {
+            return getString(R.string.register_activity_customer_physical_person);
+        } else if (checkedRadioButtonId == R.id.radioButtonLegalPerson) {
+            return getString(R.string.register_activity_customer_legal_person);
+        } else if (checkedRadioButtonId == R.id.radioButtonNotRegistered) {
+            return getString(R.string.register_activity_customer_unregistered);
         }
+        return getString(R.string.register_activity_customer_not_specified);
     }
 
     private int getCustomerTypeId(String customerType) {
@@ -189,7 +192,7 @@ public class RegisterActivity extends AppCompatActivity {
             return R.id.radioButtonPhysicalPerson;
         } else if (customerType.equals(getString(R.string.register_activity_customer_legal_person))) {
             return R.id.radioButtonLegalPerson;
-        } else if (customerType.equals(getString(R.string.register_activity_customer_not_registered))) {
+        } else if (customerType.equals(getString(R.string.register_activity_customer_unregistered))) {
             return R.id.radioButtonNotRegistered;
         }
         return -1;
@@ -202,10 +205,9 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
             editText.requestFocus();
 
-            return false;
+            return true;
         }
-
-        return true;
+        return false;
     }
 
     private boolean validateCustomer() {
@@ -214,7 +216,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             return false;
         }
-
         return true;
     }
 }
