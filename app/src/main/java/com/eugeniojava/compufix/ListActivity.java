@@ -27,9 +27,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
-import java.util.ArrayList;
+import com.eugeniojava.compufix.dao.ComputerDatabase;
+import com.eugeniojava.compufix.model.Computer;
+import com.eugeniojava.compufix.model.ComputerAdapter;
+
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -48,7 +52,7 @@ public class ListActivity extends AppCompatActivity {
                 return 0;
         }
     };
-    private ArrayList<Computer> computers;
+    private List<Computer> computers;
     private ListView listViewComputer;
     private ComputerAdapter computerAdapter;
     private ActionMode actionMode;
@@ -126,14 +130,20 @@ public class ListActivity extends AppCompatActivity {
             return true;
         });
 
-        populateList();
         readOrderByPreference();
+        populateList();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CREATE) {
+                populateList();
+
+                return;
+            }
             Bundle bundle = data.getExtras();
+
             String owner = bundle.getString(OWNER);
             String model = bundle.getString(MODEL);
             String manufacturer = bundle.getString(MANUFACTURER);
@@ -142,20 +152,17 @@ public class ListActivity extends AppCompatActivity {
             String customerType = bundle.getString(CUSTOMER_TYPE);
             boolean urgent = bundle.getBoolean(URGENT);
 
-            if (requestCode == UPDATE) {
-                Computer computer = computers.get(selectedPosition);
-                computer.setOwner(owner);
-                computer.setModel(model);
-                computer.setManufacturer(manufacturer);
-                computer.setDescription(description);
-                computer.setType(type);
-                computer.setCustomerType(customerType);
-                computer.setUrgent(urgent);
-                selectedPosition = -1;
-            } else {
-                computers.add(new Computer(owner, model, manufacturer, description, type, customerType, urgent));
-            }
-            readOrderByPreference();
+            Computer computer = computers.get(selectedPosition);
+            computer.setOwner(owner);
+            computer.setModel(model);
+            computer.setManufacturer(manufacturer);
+            computer.setDescription(description);
+            computer.setType(type);
+            computer.setCustomerType(customerType);
+            computer.setUrgent(urgent);
+
+            selectedPosition = -1;
+            orderByPreference();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -214,8 +221,6 @@ public class ListActivity extends AppCompatActivity {
 
     private void readOrderByPreference() {
         orderByInUse = getSharedPreferences(FILE, Context.MODE_PRIVATE).getInt(ORDER_BY, orderByInUse);
-
-        orderByPreference();
     }
 
     private void saveOrderPreference(int orderBy) {
@@ -236,9 +241,12 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void populateList() {
-        computers = new ArrayList<>();
+        ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
+
+        computers = computerDatabase.computerDao().findAll();
         computerAdapter = new ComputerAdapter(this, computers);
         listViewComputer.setAdapter(computerAdapter);
+        orderByPreference();
     }
 
     public void callRegisterActivityToCreate() {

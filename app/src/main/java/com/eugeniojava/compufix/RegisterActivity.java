@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eugeniojava.compufix.dao.ComputerDatabase;
+import com.eugeniojava.compufix.model.Computer;
+
 import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -38,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Spinner spinnerType;
     private RadioGroup radioGroupCustomerType;
     private CheckBox checkBoxUrgent;
+    private int actionReceived;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +64,9 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            if (bundle.getInt(ACTION, CREATE) == CREATE) {
+            actionReceived = bundle.getInt(ACTION, CREATE);
+
+            if (actionReceived == CREATE) {
                 setTitle(getString(R.string.register_activity_title_register_computer));
             } else {
                 editTextOwner.setText(bundle.getString(OWNER));
@@ -123,7 +129,19 @@ public class RegisterActivity extends AppCompatActivity {
                 || !validateCustomer()) {
             return;
         }
+        if (actionReceived == CREATE) {
+            ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
+
+            computerDatabase.computerDao().create(
+                    new Computer(owner, model, manufacturer, description, type, customerType, urgent));
+            setResult(Activity.RESULT_OK);
+            finish();
+
+            return;
+        }
+
         Intent intent = new Intent();
+
         intent.putExtra(OWNER, owner);
         intent.putExtra(MODEL, model);
         intent.putExtra(MANUFACTURER, manufacturer);
@@ -131,6 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
         intent.putExtra(TYPE, type);
         intent.putExtra(CUSTOMER_TYPE, customerType);
         intent.putExtra(URGENT, urgent);
+
         setResult(RESULT_OK, intent);
         finish();
     }

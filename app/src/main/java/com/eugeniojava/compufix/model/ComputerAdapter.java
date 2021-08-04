@@ -1,4 +1,4 @@
-package com.eugeniojava.compufix;
+package com.eugeniojava.compufix.model;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.eugeniojava.compufix.R;
 
 import java.util.List;
 
