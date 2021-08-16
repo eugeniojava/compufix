@@ -13,20 +13,20 @@
     <string name="computer_adapter_urgent_yes">Sim</string>
     <string name="computer_adapter_urgent_no">Não</string>
 
-    <string name="computer_options_menu_item_save">Salvar</string>
-    <string name="computer_options_menu_item_clear">Limpar</string>
+    <string name="edit_item_options_menu_item_save">Salvar</string>
+    <string name="edit_item_options_menu_item_clear">Limpar</string>
 
-    <string name="list_options_menu_item_add">Adicionar</string>
-    <string name="list_options_menu_item_about">Sobre</string>
-    <string name="list_options_menu_item_submenu_order_by">Ordernar por</string>
-    <string name="list_options_menu_item_submenu_order_by_1">Proprietário</string>
-    <string name="list_options_menu_item_submenu_order_by_2">Tipo</string>
+    <string name="computers_options_menu_item_add">Adicionar</string>
+    <string name="computers_options_menu_item_about">Sobre</string>
+    <string name="computers_options_menu_item_submenu_order_by">Ordernar por</string>
+    <string name="computers_options_menu_item_submenu_order_by_1">Proprietário</string>
+    <string name="computers_options_menu_item_submenu_order_by_2">Tipo</string>
 
     <string name="list_selected_item_menu_item_update">Editar</string>
     <string name="list_selected_item_menu_item_delete">Excluir</string>
 
-    <string name="register_activity_title_register_computer">Cadastrar computador</string>
-    <string name="register_activity_title_update_computer">Editar computador</string>
+    <string name="computer_form_activity_title_create_computer">Cadastrar computador</string>
+    <string name="computer_form_activity_title_update_computer">Editar computador</string>
     <string name="register_activity_owner">Proprietário</string>
     <string name="register_activity_model">Modelo</string>
     <string name="register_activity_manufacturer">Fabricante</string>

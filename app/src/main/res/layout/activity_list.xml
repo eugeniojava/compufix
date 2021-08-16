@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ListActivity">
+    tools:context=".ComputersActivity">
 
     <ListView
-        android:id="@+id/listViewComputer"
+        android:id="@+id/listViewItem"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp" />

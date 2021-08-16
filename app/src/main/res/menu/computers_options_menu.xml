@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
         android:id="@+id/menuItemAdd"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="@string/list_options_menu_item_add"
+        android:title="@string/computers_options_menu_item_add"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menuItemAbout"
-        android:title="@string/list_options_menu_item_about" />
+        android:id="@+id/menuItemTypes"
+        android:title="@string/computers_options_menu_item_types" />
     <item
         android:id="@+id/menuItemSubmenuOrderBy"
-        android:title="@string/list_options_menu_item_submenu_order_by">
+        android:title="@string/computers_options_menu_item_submenu_order_by">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/menuItemSubmenuOrderBy1"
-                    android:title="@string/list_options_menu_item_submenu_order_by_1" />
+                    android:title="@string/computers_options_menu_item_submenu_order_by_1" />
                 <item
                     android:id="@+id/menuItemSubmenuOrderBy2"
-                    android:title="@string/list_options_menu_item_submenu_order_by_2" />
+                    android:title="@string/computers_options_menu_item_submenu_order_by_2" />
             </group>
         </menu>
     </item>
+    <item
+        android:id="@+id/menuItemAbout"
+        android:title="@string/computers_options_menu_item_about" />
 </menu>

@@ -10,14 +10,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CompuFix">
         <activity
+            android:name=".TypeFormActivity"
+            android:exported="true"
+            android:parentActivityName=".TypesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".TypesActivity" />
+        </activity>
+        <activity
+            android:name=".TypesActivity"
+            android:exported="true"
+            android:parentActivityName=".ComputersActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ComputersActivity" />
+        </activity>
+        <activity
             android:name=".AboutActivity"
-            android:parentActivityName=".ListActivity" />
-        <activity android:name=".ListActivity">
+            android:exported="true"
+            android:parentActivityName=".ComputersActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ComputersActivity" />
+        </activity>
+        <activity android:name=".ComputersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ComputerFormActivity" />
     </application>
 </manifest>

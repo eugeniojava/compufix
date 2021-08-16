@@ -59,7 +59,7 @@ public class ComputerAdapter extends BaseAdapter {
         computerHolder.textViewOwner.setText(
                 context.getString(R.string.computer_adapter_owner_prefix, computers.get(position).getOwner()));
         computerHolder.textViewType.setText(
-                context.getString(R.string.computer_adapter_type_prefix, computers.get(position).getType()));
+                context.getString(R.string.computer_adapter_type_prefix, computers.get(position).getTypeId()));
         computerHolder.textViewCustomer.setText(
                 context.getString(R.string.computer_adapter_customer_prefix,
                         computers.get(position).getCustomerType()));

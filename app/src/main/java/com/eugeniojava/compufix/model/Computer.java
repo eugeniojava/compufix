@@ -1,14 +1,17 @@
 package com.eugeniojava.compufix.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "computers", foreignKeys = @ForeignKey(entity = Type.class, parentColumns = "id", childColumns =
+        "typeId"))
 public class Computer {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
 
     @NonNull
     private String owner;
@@ -22,8 +25,8 @@ public class Computer {
     @NonNull
     private String description;
 
-    @NonNull
-    private String type;
+    @ColumnInfo(index = true)
+    private int typeId;
 
     @NonNull
     private String customerType;
@@ -31,21 +34,19 @@ public class Computer {
     private boolean urgent;
 
     public Computer(@NonNull String owner, @NonNull String model, @NonNull String manufacturer,
-                    @NonNull String description, @NonNull String type, @NonNull String customerType, boolean urgent) {
+                    @NonNull String description, @NonNull String customerType) {
         this.owner = owner;
         this.model = model;
         this.manufacturer = manufacturer;
         this.description = description;
-        this.type = type;
         this.customerType = customerType;
-        this.urgent = urgent;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,13 +86,12 @@ public class Computer {
         this.description = description;
     }
 
-    @NonNull
-    public String getType() {
-        return type;
+    public int getTypeId() {
+        return typeId;
     }
 
-    public void setType(@NonNull String type) {
-        this.type = type;
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 
     @NonNull

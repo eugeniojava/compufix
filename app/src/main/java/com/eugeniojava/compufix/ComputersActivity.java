@@ -1,22 +1,16 @@
 package com.eugeniojava.compufix;
 
 import static android.widget.AbsListView.CHOICE_MODE_SINGLE;
-import static com.eugeniojava.compufix.RegisterActivity.ACTION;
-import static com.eugeniojava.compufix.RegisterActivity.CREATE;
-import static com.eugeniojava.compufix.RegisterActivity.CUSTOMER_TYPE;
-import static com.eugeniojava.compufix.RegisterActivity.DESCRIPTION;
-import static com.eugeniojava.compufix.RegisterActivity.MANUFACTURER;
-import static com.eugeniojava.compufix.RegisterActivity.MODEL;
-import static com.eugeniojava.compufix.RegisterActivity.OWNER;
-import static com.eugeniojava.compufix.RegisterActivity.TYPE;
-import static com.eugeniojava.compufix.RegisterActivity.UPDATE;
-import static com.eugeniojava.compufix.RegisterActivity.URGENT;
+import static com.eugeniojava.compufix.ComputerFormActivity.ACTION;
+import static com.eugeniojava.compufix.ComputerFormActivity.CREATE;
+import static com.eugeniojava.compufix.ComputerFormActivity.ID;
+import static com.eugeniojava.compufix.ComputerFormActivity.UPDATE;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,37 +18,42 @@ import android.view.View;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ActionMode;
 
 import com.eugeniojava.compufix.dao.ComputerDatabase;
 import com.eugeniojava.compufix.model.Computer;
 import com.eugeniojava.compufix.model.ComputerAdapter;
+import com.eugeniojava.compufix.model.Type;
+import com.eugeniojava.compufix.util.AlertDialogUtil;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class ComputersActivity extends AppCompatActivity {
 
     private static final String FILE = "com.eugeniojava.shared.preferences.order-preference";
     private static final String ORDER_BY = "ORDER_BY";
     private static final int ORDER_BY_1 = 1;
     private static final int ORDER_BY_2 = 2;
+    private static final int REQUEST_CREATE_COMPUTER = 1;
+    private static final int REQUEST_UPDATE_COMPUTER = 2;
+    private ListView listViewComputer;
+    private ComputerAdapter computerAdapter;
+    private List<Computer> computers;
     private int orderByInUse = ORDER_BY_1;
     private final Comparator<Computer> computerComparator = (computer1, computer2) -> {
         switch (orderByInUse) {
             case ORDER_BY_1:
                 return computer1.getOwner().compareToIgnoreCase(computer2.getOwner());
             case ORDER_BY_2:
-                return computer1.getType().compareToIgnoreCase(computer2.getType());
+                return 0;
             default:
                 return 0;
         }
     };
-    private List<Computer> computers;
-    private ListView listViewComputer;
-    private ComputerAdapter computerAdapter;
     private ActionMode actionMode;
     private int selectedPosition = -1;
     private View selectedView;
@@ -62,7 +61,7 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.list_selected_item, menu);
+            mode.getMenuInflater().inflate(R.menu.list_selected_item_options, menu);
 
             return true;
         }
@@ -82,7 +81,8 @@ public class ListActivity extends AppCompatActivity {
             int itemId = item.getItemId();
 
             if (itemId == R.id.menuItemUpdate) {
-                callRegisterActivityToUpdate();
+                Computer computer = (Computer) listViewComputer.getItemAtPosition(selectedPosition);
+                callRegisterActivityToUpdate(computer);
                 mode.finish();
 
                 return true;
@@ -111,10 +111,10 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        listViewComputer = findViewById(R.id.listViewComputer);
+        listViewComputer = findViewById(R.id.listViewItem);
         listViewComputer.setOnItemClickListener((parent, view, position, id) -> {
-            selectedPosition = position;
-            callRegisterActivityToUpdate();
+            Computer computer = (Computer) parent.getItemAtPosition(position);
+            callRegisterActivityToUpdate(computer);
         });
         listViewComputer.setChoiceMode(CHOICE_MODE_SINGLE);
         listViewComputer.setOnItemLongClickListener((parent, view, position, id) -> {
@@ -129,47 +129,21 @@ public class ListActivity extends AppCompatActivity {
 
             return true;
         });
-
         readOrderByPreference();
-        populateList();
+        loadComputers();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == CREATE) {
-                populateList();
-
-                return;
-            }
-            Bundle bundle = data.getExtras();
-
-            String owner = bundle.getString(OWNER);
-            String model = bundle.getString(MODEL);
-            String manufacturer = bundle.getString(MANUFACTURER);
-            String description = bundle.getString(DESCRIPTION);
-            String type = bundle.getString(TYPE);
-            String customerType = bundle.getString(CUSTOMER_TYPE);
-            boolean urgent = bundle.getBoolean(URGENT);
-
-            Computer computer = computers.get(selectedPosition);
-            computer.setOwner(owner);
-            computer.setModel(model);
-            computer.setManufacturer(manufacturer);
-            computer.setDescription(description);
-            computer.setType(type);
-            computer.setCustomerType(customerType);
-            computer.setUrgent(urgent);
-
-            selectedPosition = -1;
-            orderByPreference();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if ((requestCode == REQUEST_CREATE_COMPUTER || requestCode == REQUEST_UPDATE_COMPUTER) && resultCode == RESULT_OK) {
+            loadComputers();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.list_options_menu, menu);
+        getMenuInflater().inflate(R.menu.computers_options_menu, menu);
 
         return true;
     }
@@ -198,11 +172,11 @@ public class ListActivity extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.menuItemAdd) {
-            callRegisterActivityToCreate();
+            verifyTypes();
 
             return true;
-        } else if (itemId == R.id.menuItemAbout) {
-            callAboutActivity();
+        } else if (itemId == R.id.menuItemTypes) {
+            callTypesActivity();
 
             return true;
         } else if (itemId == R.id.menuItemSubmenuOrderBy1) {
@@ -215,8 +189,39 @@ public class ListActivity extends AppCompatActivity {
             saveOrderPreference(ORDER_BY_2);
 
             return true;
+        } else if (itemId == R.id.menuItemAbout) {
+            callAboutActivity();
+
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadComputers() {
+        AsyncTask.execute(() -> {
+            ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
+            computers = computerDatabase.computerDao().findAll();
+
+            runOnUiThread(() -> {
+                computerAdapter = new ComputerAdapter(this, computers);
+                listViewComputer.setAdapter(computerAdapter);
+            });
+        });
+    }
+
+    private void verifyTypes() {
+        AsyncTask.execute(() -> {
+            ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
+            int typesQuantity = computerDatabase.typeDao().countAll();
+
+            if (typesQuantity == 0) {
+                runOnUiThread(() -> AlertDialogUtil.showErrorAlertDialog(this,
+                        R.string.computers_activity_message_error_no_type_registered));
+
+                return;
+            }
+            callRegisterActivityToCreate();
+        });
     }
 
     private void readOrderByPreference() {
@@ -249,31 +254,28 @@ public class ListActivity extends AppCompatActivity {
         orderByPreference();
     }
 
-    public void callRegisterActivityToCreate() {
-        Intent intent = new Intent(this, RegisterActivity.class);
+    private void callRegisterActivityToCreate() {
+        Intent intent = new Intent(this, ComputerFormActivity.class);
 
         intent.putExtra(ACTION, CREATE);
 
         startActivityForResult(intent, CREATE);
     }
 
-    private void callRegisterActivityToUpdate() {
-        Computer computer = computers.get(selectedPosition);
-        Intent intent = new Intent(this, RegisterActivity.class);
+    private void callRegisterActivityToUpdate(Computer computer) {
+        Intent intent = new Intent(this, ComputerFormActivity.class);
 
         intent.putExtra(ACTION, UPDATE);
-        intent.putExtra(OWNER, computer.getOwner());
-        intent.putExtra(MODEL, computer.getModel());
-        intent.putExtra(MANUFACTURER, computer.getManufacturer());
-        intent.putExtra(DESCRIPTION, computer.getDescription());
-        intent.putExtra(TYPE, computer.getType());
-        intent.putExtra(CUSTOMER_TYPE, computer.getCustomerType());
-        intent.putExtra(URGENT, computer.isUrgent());
+        intent.putExtra(ID, computer.getId());
 
         startActivityForResult(intent, UPDATE);
     }
 
-    public void callAboutActivity() {
+    private void callTypesActivity() {
+        startActivity(new Intent(this, TypesActivity.class));
+    }
+
+    private void callAboutActivity() {
         startActivity(new Intent(this, AboutActivity.class));
     }
 }
