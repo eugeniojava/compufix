@@ -1,11 +1,13 @@
 package com.eugeniojava.compufix;
 
+import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -19,10 +21,12 @@ import com.eugeniojava.compufix.dao.ComputerDatabase;
 import com.eugeniojava.compufix.model.Computer;
 import com.eugeniojava.compufix.model.Type;
 import com.eugeniojava.compufix.util.AlertDialogUtil;
+import com.eugeniojava.compufix.util.DateUtil;
 
+import java.util.Calendar;
 import java.util.List;
 
-public class ComputerFormActivity extends AppCompatActivity {
+public class ComputerFormActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     public static final String ACTION = "ACTION";
     public static final String ID = "ID";
@@ -37,6 +41,8 @@ public class ComputerFormActivity extends AppCompatActivity {
     private List<Type> types;
     private RadioGroup radioGroupCustomerType;
     private CheckBox checkBoxUrgent;
+    private EditText editTextCompletionForecast;
+    private Calendar calendarCompletionForecast;
     private Computer computer;
 
     @Override
@@ -57,6 +63,18 @@ public class ComputerFormActivity extends AppCompatActivity {
         loadTypes();
         radioGroupCustomerType = findViewById(R.id.radioGroupCustomer);
         checkBoxUrgent = findViewById(R.id.checkBoxUrgent);
+        calendarCompletionForecast = Calendar.getInstance();
+        editTextCompletionForecast = findViewById(R.id.editTextCompletionForecast);
+        editTextCompletionForecast.setFocusable(false);
+        editTextCompletionForecast.setOnClickListener(view -> new DatePickerDialog(
+                this,
+                R.style.CustomDatePickerDialogTheme,
+                this,
+                calendarCompletionForecast.get(Calendar.YEAR),
+                calendarCompletionForecast.get(Calendar.MONTH),
+                calendarCompletionForecast.get(Calendar.DAY_OF_MONTH))
+                .show()
+        );
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -64,7 +82,9 @@ public class ComputerFormActivity extends AppCompatActivity {
 
             if (action == CREATE) {
                 setTitle(getString(R.string.computer_form_activity_title_create_computer));
+
                 computer = new Computer("", "", "", "", "");
+                editTextOwner.requestFocus();
             } else {
                 setTitle(getString(R.string.computer_form_activity_title_update_computer));
 
@@ -81,6 +101,11 @@ public class ComputerFormActivity extends AppCompatActivity {
                         spinnerType.setSelection(typePosition(computer.getTypeId()));
                         radioGroupCustomerType.check(getCustomerTypeId(computer.getCustomerType()));
                         checkBoxUrgent.setChecked(computer.isUrgent());
+                        calendarCompletionForecast.setTime(computer.getCompletionForecast());
+                        editTextCompletionForecast.setText(DateUtil.formatDate(this,
+                                computer.getCompletionForecast()));
+                        editTextOwner.requestFocus();
+                        editTextOwner.setSelection(editTextOwner.getText().length());
                     });
                 });
             }
@@ -117,6 +142,12 @@ public class ComputerFormActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        calendarCompletionForecast.set(year, month, dayOfMonth);
+        editTextCompletionForecast.setText(DateUtil.formatDate(this, calendarCompletionForecast.getTime()));
     }
 
     private void save() {
@@ -157,6 +188,12 @@ public class ComputerFormActivity extends AppCompatActivity {
 
         boolean urgent = checkBoxUrgent.isChecked();
 
+        String completionForecastDate = AlertDialogUtil.validateEditText(this, editTextCompletionForecast,
+                R.string.computer_form_activity_message_error_completion_forecast);
+        if (completionForecastDate == null) {
+            return;
+        }
+
         computer.setOwner(owner);
         computer.setModel(model);
         computer.setManufacturer(manufacturer);
@@ -164,6 +201,7 @@ public class ComputerFormActivity extends AppCompatActivity {
         computer.setTypeId(type.getId());
         computer.setCustomerType(customerType);
         computer.setUrgent(urgent);
+        computer.setCompletionForecast(calendarCompletionForecast.getTime());
 
         AsyncTask.execute(() -> {
             ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
@@ -187,8 +225,10 @@ public class ComputerFormActivity extends AppCompatActivity {
         spinnerType.setSelection(0);
         radioGroupCustomerType.clearCheck();
         checkBoxUrgent.setChecked(false);
+        editTextCompletionForecast.setText(null);
         editTextOwner.requestFocus();
-        Toast.makeText(this, R.string.register_activity_message_success_clear, Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(this, R.string.computer_form_activity_message_form_cleared, Toast.LENGTH_SHORT).show();
     }
 
     private void cancel() {

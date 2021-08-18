@@ -1,9 +1,9 @@
 
 v
-java:S1104N"YMake textViewOwner a static final constant or non-public and provide accessors if needed.(»ûÙÖ8ÿÇ®´³/
+java:S1104O"YMake textViewOwner a static final constant or non-public and provide accessors if needed.(»ûÙÖ8ÿÇ®´³/
 n
-java:S1104O"XMake textViewType a static final constant or non-public and provide accessors if needed.(®‡»Ò
+java:S1104P"XMake textViewType a static final constant or non-public and provide accessors if needed.(®‡»Ò
 w
-java:S1104P"\Make textViewCustomer a static final constant or non-public and provide accessors if needed.(¶…ÀÍşÿÿÿÿ
-p
-java:S1104Q"ZMake textViewUrgent a static final constant or non-public and provide accessors if needed.(Öİ¤
+java:S1104Q"\Make textViewCustomer a static final constant or non-public and provide accessors if needed.(¶…ÀÍşÿÿÿÿ
+w
+java:S1104R"ZMake textViewUrgent a static final constant or non-public and provide accessors if needed.(Öİ¤8¦µ/

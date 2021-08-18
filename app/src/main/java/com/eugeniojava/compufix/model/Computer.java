@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.Date;
 
 @Entity(tableName = "computers", foreignKeys = @ForeignKey(entity = Type.class, parentColumns = "id", childColumns =
         "typeId"))
@@ -28,10 +31,15 @@ public class Computer {
     @ColumnInfo(index = true)
     private int typeId;
 
+    @Ignore
+    private Type type;
+
     @NonNull
     private String customerType;
 
     private boolean urgent;
+
+    private Date completionForecast;
 
     public Computer(@NonNull String owner, @NonNull String model, @NonNull String manufacturer,
                     @NonNull String description, @NonNull String customerType) {
@@ -94,6 +102,14 @@ public class Computer {
         this.typeId = typeId;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     @NonNull
     public String getCustomerType() {
         return customerType;
@@ -109,5 +125,13 @@ public class Computer {
 
     public void setUrgent(boolean urgent) {
         this.urgent = urgent;
+    }
+
+    public Date getCompletionForecast() {
+        return completionForecast;
+    }
+
+    public void setCompletionForecast(Date completionForecast) {
+        this.completionForecast = completionForecast;
     }
 }

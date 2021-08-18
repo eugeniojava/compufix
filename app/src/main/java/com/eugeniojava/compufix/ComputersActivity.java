@@ -7,6 +7,7 @@ import static com.eugeniojava.compufix.ComputerFormActivity.ID;
 import static com.eugeniojava.compufix.ComputerFormActivity.UPDATE;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -28,6 +29,7 @@ import com.eugeniojava.compufix.model.ComputerAdapter;
 import com.eugeniojava.compufix.model.Type;
 import com.eugeniojava.compufix.util.AlertDialogUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -43,13 +45,26 @@ public class ComputersActivity extends AppCompatActivity {
     private ListView listViewComputer;
     private ComputerAdapter computerAdapter;
     private List<Computer> computers;
+    private List<Type> types;
     private int orderByInUse = ORDER_BY_1;
     private final Comparator<Computer> computerComparator = (computer1, computer2) -> {
+        int ownerOrder = computer1.getOwner().compareToIgnoreCase(computer2.getOwner());
+        int typeOrder = getTypeById(computer1.getTypeId()).getDescription()
+                .compareToIgnoreCase(
+                        getTypeById(computer2.getTypeId()).getDescription()
+                );
+
         switch (orderByInUse) {
             case ORDER_BY_1:
-                return computer1.getOwner().compareToIgnoreCase(computer2.getOwner());
+                if (ownerOrder == 0) {
+                    return typeOrder;
+                }
+                return ownerOrder;
             case ORDER_BY_2:
-                return 0;
+                if (typeOrder == 0) {
+                    return ownerOrder;
+                }
+                return typeOrder;
             default:
                 return 0;
         }
@@ -57,8 +72,7 @@ public class ComputersActivity extends AppCompatActivity {
     private ActionMode actionMode;
     private int selectedPosition = -1;
     private View selectedView;
-    private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
-
+    private final ActionMode.Callback callback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.list_selected_item_options, menu);
@@ -71,23 +85,18 @@ public class ComputersActivity extends AppCompatActivity {
             return false;
         }
 
-        private void delete() {
-            computers.remove(selectedPosition);
-            computerAdapter.notifyDataSetChanged();
-        }
-
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            Computer computer = (Computer) listViewComputer.getItemAtPosition(selectedPosition);
             int itemId = item.getItemId();
 
             if (itemId == R.id.menuItemUpdate) {
-                Computer computer = (Computer) listViewComputer.getItemAtPosition(selectedPosition);
-                callRegisterActivityToUpdate(computer);
+                callComputerFormActivityToUpdate(computer);
                 mode.finish();
 
                 return true;
             } else if (itemId == R.id.menuItemDelete) {
-                delete();
+                callComputerDeletion(computer);
                 mode.finish();
 
                 return true;
@@ -114,20 +123,20 @@ public class ComputersActivity extends AppCompatActivity {
         listViewComputer = findViewById(R.id.listViewItem);
         listViewComputer.setOnItemClickListener((parent, view, position, id) -> {
             Computer computer = (Computer) parent.getItemAtPosition(position);
-            callRegisterActivityToUpdate(computer);
+            callComputerFormActivityToUpdate(computer);
         });
         listViewComputer.setChoiceMode(CHOICE_MODE_SINGLE);
         listViewComputer.setOnItemLongClickListener((parent, view, position, id) -> {
-            if (actionMode != null) {
-                return false;
-            }
-            selectedPosition = position;
-            view.setBackgroundColor(Color.LTGRAY);
-            selectedView = view;
-            listViewComputer.setEnabled(false);
-            actionMode = startSupportActionMode(actionModeCallback);
+            if (actionMode == null) {
+                selectedPosition = position;
+                view.setBackgroundColor(Color.LTGRAY);
+                selectedView = view;
+                listViewComputer.setEnabled(false);
+                actionMode = startSupportActionMode(callback);
 
-            return true;
+                return true;
+            }
+            return false;
         });
         readOrderByPreference();
         loadComputers();
@@ -202,11 +211,36 @@ public class ComputersActivity extends AppCompatActivity {
             ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
             computers = computerDatabase.computerDao().findAll();
 
+            for (Computer computer : computers) {
+                Type type = getTypeById(computer.getTypeId());
+
+                if (type == null) {
+                    type = computerDatabase.typeDao().findById(computer.getTypeId());
+                    types.add(type);
+                }
+                computer.setType(type);
+            }
+
             runOnUiThread(() -> {
                 computerAdapter = new ComputerAdapter(this, computers);
                 listViewComputer.setAdapter(computerAdapter);
+                orderByPreference();
             });
         });
+    }
+
+    private Type getTypeById(int typeId) {
+        if (types == null) {
+            types = new ArrayList<>();
+
+            return null;
+        }
+        for (Type type : types) {
+            if (type.getId() == typeId) {
+                return type;
+            }
+        }
+        return null;
     }
 
     private void verifyTypes() {
@@ -220,7 +254,7 @@ public class ComputersActivity extends AppCompatActivity {
 
                 return;
             }
-            callRegisterActivityToCreate();
+            callComputerFormActivityToCreate();
         });
     }
 
@@ -245,16 +279,7 @@ public class ComputersActivity extends AppCompatActivity {
         }
     }
 
-    private void populateList() {
-        ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
-
-        computers = computerDatabase.computerDao().findAll();
-        computerAdapter = new ComputerAdapter(this, computers);
-        listViewComputer.setAdapter(computerAdapter);
-        orderByPreference();
-    }
-
-    private void callRegisterActivityToCreate() {
+    private void callComputerFormActivityToCreate() {
         Intent intent = new Intent(this, ComputerFormActivity.class);
 
         intent.putExtra(ACTION, CREATE);
@@ -262,13 +287,35 @@ public class ComputersActivity extends AppCompatActivity {
         startActivityForResult(intent, CREATE);
     }
 
-    private void callRegisterActivityToUpdate(Computer computer) {
+    private void callComputerFormActivityToUpdate(Computer computer) {
         Intent intent = new Intent(this, ComputerFormActivity.class);
 
         intent.putExtra(ACTION, UPDATE);
         intent.putExtra(ID, computer.getId());
 
         startActivityForResult(intent, UPDATE);
+    }
+
+    private void callComputerDeletion(Computer computer) {
+        String confirmationMessage =
+                getString(R.string.computers_activity_message_confirmation_deletion,
+                        computer.getManufacturer() + " " + computer.getModel());
+
+        DialogInterface.OnClickListener onClickListener = (dialog, which) -> {
+            if (which == DialogInterface.BUTTON_POSITIVE) {
+                AsyncTask.execute(() -> {
+                    ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
+                    computerDatabase.computerDao().delete(computer);
+
+                    runOnUiThread(() -> {
+                        computers.remove(computer);
+                        computerAdapter.notifyDataSetChanged();
+                    });
+                });
+            }
+        };
+
+        AlertDialogUtil.showConfirmationAlertDialog(this, confirmationMessage, onClickListener);
     }
 
     private void callTypesActivity() {

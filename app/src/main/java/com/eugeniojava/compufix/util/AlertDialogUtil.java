@@ -47,13 +47,13 @@ public class AlertDialogUtil {
         builder.create().show();
     }
 
-    public static void showConfirmationAlertDialog(Context context, int messageId,
+    public static void showConfirmationAlertDialog(Context context, String message,
                                                    DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder.setTitle(R.string.alert_dialog_util_alert_dialog_confirmation_title);
         builder.setIcon(android.R.drawable.ic_dialog_alert);
-        builder.setMessage(messageId);
+        builder.setMessage(message);
         builder.setPositiveButton(R.string.alert_dialog_util_alert_dialog_yes_button, onClickListener);
         builder.setNegativeButton(R.string.alert_dialog_util_alert_dialog_no_button, onClickListener);
 

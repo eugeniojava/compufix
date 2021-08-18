@@ -44,9 +44,10 @@ public class TypeFormActivity extends AppCompatActivity {
             mode = CREATE;
         }
         if (mode == CREATE) {
-            setTitle(R.string.type_form_activity_title_create);
+            setTitle(R.string.type_form_activity_title_create_type);
 
             type = new Type("");
+            editTextDescription.requestFocus();
         } else {
             setTitle(R.string.type_form_activity_title_update);
 
@@ -55,7 +56,11 @@ public class TypeFormActivity extends AppCompatActivity {
                 ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
                 type = computerDatabase.typeDao().findById(id);
 
-                runOnUiThread(() -> editTextDescription.setText(type.getDescription()));
+                runOnUiThread(() -> {
+                    editTextDescription.setText(type.getDescription());
+                    editTextDescription.requestFocus();
+                    editTextDescription.setSelection(editTextDescription.getText().length());
+                });
             });
         }
     }
@@ -89,7 +94,7 @@ public class TypeFormActivity extends AppCompatActivity {
         if (description != null) {
             AsyncTask.execute(() -> {
                 ComputerDatabase computerDatabase = ComputerDatabase.getInstance(this);
-                int countByDescription = computerDatabase.typeDao().countBy(description);
+                int countByDescription = computerDatabase.typeDao().countByDescription(description);
 
                 if (mode == CREATE) {
                     if (countByDescription > 0) {
@@ -121,6 +126,7 @@ public class TypeFormActivity extends AppCompatActivity {
     private void clear() {
         editTextDescription.setText(null);
         editTextDescription.requestFocus();
+
         Toast.makeText(this, getString(R.string.type_form_activity_message_form_cleared), Toast.LENGTH_SHORT).show();
     }
 }

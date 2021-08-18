@@ -5,26 +5,21 @@
     <string name="about_activity_description">Aplicativo para gerenciamento de computadores a serem reparados</string>
     <string name="about_activity_college_logo_content_description">Logo UTFPR</string>
     <string name="about_activity_college_name">Universidade Tecnológica Federal do Paraná</string>
-
     <string name="computer_adapter_urgent_prefix">Urgente? %1$s</string>
     <string name="computer_adapter_type_prefix">Tipo: %1$s</string>
     <string name="computer_adapter_customer_prefix">Cliente: %1$s</string>
     <string name="computer_adapter_owner_prefix">Proprietário: %1$s</string>
     <string name="computer_adapter_urgent_yes">Sim</string>
     <string name="computer_adapter_urgent_no">Não</string>
-
     <string name="edit_item_options_menu_item_save">Salvar</string>
     <string name="edit_item_options_menu_item_clear">Limpar</string>
-
     <string name="computers_options_menu_item_add">Adicionar</string>
     <string name="computers_options_menu_item_about">Sobre</string>
     <string name="computers_options_menu_item_submenu_order_by">Ordernar por</string>
     <string name="computers_options_menu_item_submenu_order_by_1">Proprietário</string>
     <string name="computers_options_menu_item_submenu_order_by_2">Tipo</string>
-
     <string name="list_selected_item_menu_item_update">Editar</string>
     <string name="list_selected_item_menu_item_delete">Excluir</string>
-
     <string name="computer_form_activity_title_create_computer">Cadastrar computador</string>
     <string name="computer_form_activity_title_update_computer">Editar computador</string>
     <string name="register_activity_owner">Proprietário</string>
@@ -46,5 +41,32 @@
     <string name="register_activity_message_error_manufacturer">Fabricante não pode ser vazio</string>
     <string name="register_activity_message_error_description">Descrição não pode ser vazio</string>
     <string name="register_activity_message_error_customer">Cliente deve ser selecionado</string>
-    <string name="register_activity_message_success_clear">Formulário limpo com sucesso!</string>
+    <string name="computer_form_activity_message_form_cleared">Formulário limpo com sucesso</string>
+    <string name="computers_activity_message_error_no_type_registered">Não existe nenhum tipo cadastrado</string>
+    <string name="type_form_activity_title_update">Atualizar tipo</string>
+    <string name="type_form_activity_title_create_type">Cadastrar tipo</string>
+    <string name="computers_options_menu_item_types">Tipos</string>
+    <string name="types_activity_title">Tipos</string>
+    <string name="type_form_activity_message_form_cleared">Formulário limpo com sucesso</string>
+    <string name="type_form_activity_message_description_already_registered">Descrição já cadastrada</string>
+    <string name="type_form_activity_message_description_empty">Descrição não pode ser vazia</string>
+    <string name="alert_dialog_util_alert_dialog_no_button">Não</string>
+    <string name="alert_dialog_util_alert_dialog_yes_button">Sim</string>
+    <string name="alert_dialog_util_alert_dialog_confirmation_title">Confirmação</string>
+    <string name="alert_dialog_util_alert_dialog_ok_button">Ok</string>
+    <string name="alert_dialog_util_alert_dialog_error_title">Erro</string>
+    <string name="type_activity_create_title">Cadastrar tipo</string>
+    <string name="type_activity_update_title">Atualizar tipo</string>
+    <string name="type_activity_description">Descrição</string>
+    <string name="types_options_menu_item_add">Adicionar</string>
+    <string name="computer_form_activity_message_error_owner">Proprietário não pode ser vazio</string>
+    <string name="computer_form_activity_message_error_model">Modelo não pode ser vazio</string>
+    <string name="computer_form_activity_message_error_manufacturer">Fabricante não pode ser vazio</string>
+    <string name="computer_form_activity_message_error_description">Descrição não pode vazio</string>
+    <string name="computer_form_activity_message_error_customer">Cliente deve ser selecionado</string>
+    <string name="computers_activity_message_confirmation_deletion">Você tem certeza de que deseja excluir %1$s?</string>
+    <string name="types_activity_message_error_type_in_use">Este tipo está em uso. Não pode ser deletado</string>
+    <string name="types_activity_message_confirmation_deletion">Você tem certeza de que deseja excluir %1$s?</string>
+    <string name="activity_computer_form_completion_forecast">Previsão de conclusão</string>
+    <string name="computer_form_activity_message_error_completion_forecast">Previsão de conclusão não pode ser vazio</string>
 </resources>

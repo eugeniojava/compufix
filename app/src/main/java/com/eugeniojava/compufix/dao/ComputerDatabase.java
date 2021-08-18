@@ -6,15 +6,18 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.eugeniojava.compufix.R;
 import com.eugeniojava.compufix.model.Computer;
 import com.eugeniojava.compufix.model.Type;
+import com.eugeniojava.compufix.util.ConverterUtil;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Computer.class, Type.class}, version = 2)
+@Database(entities = {Computer.class, Type.class}, version = 3)
+@TypeConverters({ConverterUtil.class})
 public abstract class ComputerDatabase extends RoomDatabase {
 
     private static ComputerDatabase instance;

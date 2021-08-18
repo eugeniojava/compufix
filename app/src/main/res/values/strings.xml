@@ -8,7 +8,7 @@
     <string name="about_activity_college_name">Federal Technological University of Parana</string>
     <string name="app_name" translatable="false">CompuFix</string>
     <string name="computer_adapter_urgent_prefix">Urgent? %1$s</string>
-    <string name="computer_adapter_type_prefix">Type: %1$d</string>
+    <string name="computer_adapter_type_prefix">Type: %1$s</string>
     <string name="computer_adapter_customer_prefix">Customer: %1$s</string>
     <string name="computer_adapter_owner_prefix">Owner: %1$s</string>
     <string name="computer_adapter_urgent_yes">Yes</string>
@@ -48,7 +48,7 @@
     <string name="computer_form_activity_message_error_manufacturer">Manufacturer can not be empty</string>
     <string name="computer_form_activity_message_error_description">Description can not be empty</string>
     <string name="computer_form_activity_message_error_customer">Customer must be selected</string>
-    <string name="register_activity_message_success_clear">Form successfully cleared!</string>
+    <string name="computer_form_activity_message_form_cleared">Form successfully cleared</string>
     <string name="types_options_menu_item_add">Add</string>
     <string name="type_activity_description">Description</string>
     <string name="type_activity_update_title">Update type</string>
@@ -63,7 +63,12 @@
     <string name="type_form_activity_message_form_cleared">Form successfully cleared</string>
     <string name="types_activity_title">Types</string>
     <string name="computers_options_menu_item_types">Types</string>
-    <string name="type_form_activity_title_create">Register type</string>
+    <string name="type_form_activity_title_create_type">Register type</string>
     <string name="type_form_activity_title_update">Update type</string>
     <string name="computers_activity_message_error_no_type_registered">There is no type registered</string>
+    <string name="computers_activity_message_confirmation_deletion">Are you sure you want to delete %1$s?</string>
+    <string name="types_activity_message_error_type_in_use">This type is in use. Can not be deleted</string>
+    <string name="types_activity_message_confirmation_deletion">Are you sure you want to delete %1$s?</string>
+    <string name="activity_computer_form_completion_forecast">Completion forecast</string>
+    <string name="computer_form_activity_message_error_completion_forecast">Completion forecast can not be empty</string>
 </resources>
